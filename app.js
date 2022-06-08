@@ -75,7 +75,7 @@ btnSearch.addEventListener('click', ()=>{
  })
 
 
- // DÓNDE METO ESTA VAINA LOCA? JAJAJAJAJAJA
- /*for (let destroySearch of destroySearches){
+ // WIP: destruir la búsqueda y sustituirla con la nueva
+ for (let destroySearch of destroySearches){
     container.removeChild(destroySearch);
-};*/ 
+};
