@@ -1,0 +1,13 @@
+.episodesDiv{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+.episodesDiv p{
+    width: 250px;
+}
+.episodesButton{
+    margin-top: 20px;
+}
+.episodeHidden{
+    display: none;
+}
