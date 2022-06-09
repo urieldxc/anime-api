@@ -12,7 +12,22 @@
     display: none;
 }
 
+.historyDiv ul{
+    padding: 10px;
+    display: flex;
+    /* justify-content: center; */
+    color: red;
+    list-style: none;
+    /* border: 2px solid lightgray; */
+}
 
+.historyDiv li img{
+    height: 220px;
+    width: 150px;
+}
+.historyDiv li{
+    margin-right: 20px;
+}
 .noEsLaLinea20{
     display:none
 }
