@@ -67,27 +67,43 @@ for (let destroySearch of destroySearches) {
 };
 
 // Hay que factorizar si o si y reducir tanto codigo repetido
-const addLastAnime = (mal_id, image_url) => {
+// EDIT: LETSGOOOOOO he conseguido refactorizarlo, voy a guardar (comentado) el código.
+const createDomImg = (mal_id, image_url, historyCount) =>{
+    if(historyCount == true){
+        historyUl.firstChild.remove();
+        animeHistory.shift();
+    }
+
     animeHistory.push(mal_id);
     const animeCard = document.createElement("li");
     const animeImg = document.createElement("img");
     historyUl.appendChild(animeCard);
-    animeCard.appendChild(animeImg)
-    animeImg.src = image_url
+    animeCard.appendChild(animeImg);
+    animeImg.src = image_url;
 }
 
-const historyLastFive = (mal_id, image_url) => {
-    historyUl.firstChild.remove()
-    animeHistory.shift();
-    animeHistory.push(mal_id);
-    const animeCard = document.createElement("li");
-    const animeImg = document.createElement("img");
-    historyUl.appendChild(animeCard);
-    animeCard.appendChild(animeImg)
-    animeImg.src = image_url
-}
+// const addLastAnime = (mal_id, image_url) => {
+//     animeHistory.push(mal_id);
+//     const animeCard = document.createElement("li");
+//     const animeImg = document.createElement("img");
+//     historyUl.appendChild(animeCard);
+//     animeCard.appendChild(animeImg)
+//     animeImg.src = image_url
+// }
+
+// const historyLastFive = (mal_id, image_url) => {
+//     historyUl.firstChild.remove()
+//     animeHistory.shift();
+
+//     animeHistory.push(mal_id);
+//     const animeCard = document.createElement("li");
+//     const animeImg = document.createElement("img");
+//     historyUl.appendChild(animeCard);
+//     animeCard.appendChild(animeImg)
+//     animeImg.src = image_url
+// }
 
 const searchHistory = (mal_id, image_url) => {
-    animeHistory.length < 5 ? addLastAnime(mal_id, image_url) : historyLastFive(mal_id, image_url)
+    animeHistory.length < 5 ? createDomImg(mal_id, image_url, false) : createDomImg(mal_id, image_url, true)
 }
 
