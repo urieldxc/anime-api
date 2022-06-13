@@ -24,27 +24,38 @@ const drawAnimeData = (title, synopsis, image_url, episodes) => {
     const buttonEpisodes = document.createElement("button")
     const episodesDiv = document.createElement("div")
     const animeContainer = document.createElement("div")
+    const imgAndDesc = document.createElement("div");
+    const descDiv = document.createElement("div");
     const animeDesc = document.createElement("p");
     const animeImg = document.createElement("img")
     const container2 = document.createElement("div");
     const animeTitle = document.createElement("h2")
 
     animeSection.appendChild(animeContainer)
+
     animeContainer.appendChild(animeTitle)
-    animeContainer.appendChild(animeImg)
-    animeContainer.appendChild(animeDesc);
-    animeContainer.appendChild(container2);
-    animeContainer.appendChild(buttonEpisodes)
-    animeContainer.appendChild(episodesDiv)
+    animeContainer.appendChild(imgAndDesc);
+    
+    imgAndDesc.appendChild(animeImg)
+    
+    imgAndDesc.appendChild(descDiv)
+    descDiv.appendChild(animeDesc);
+    descDiv.appendChild(container2);
+    descDiv.appendChild(buttonEpisodes)
+    descDiv.appendChild(episodesDiv)
 
     episodesDiv.classList.add("episodesDiv", "episodeHidden")
+    descDiv.classList.add("anime-desc")
+    imgAndDesc.classList.add("img-desc-div")
     buttonEpisodes.classList.add("buttonEpisodes")
     animeContainer.classList.add("animeContainer")
     buttonEpisodes.innerHTML = ("Show Episodes")
+
     animeTitle.innerHTML = title;
     animeDesc.innerHTML = synopsis;
     animeImg.src = image_url
 
+    animeTitle.classList.add("animeTitle")
     container2.classList.add("numEpisodes");
     container2.innerHTML = `Episodes: ${episodes}`;
     container2.style.fontWeight = "bold";

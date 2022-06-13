@@ -1,8 +1,68 @@
+body{
+    background: #222634;
+    color: white;
+    font-family: open sans,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header{
+    background: #161922;
+    margin-bottom: 40px;
+}
 
+.headerDiv{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+.searchDiv{
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+}
+header input{
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    outline: none;
+}
+button{
+    padding: 5px;
+    border-radius:5px;
+    border: none;
+    background: rgb(31, 153, 51);
+    color: white;
+    cursor: pointer;
+}
+.buttonEpisodes{
+    margin-top: 15px;
+}
+.animeTitle{
+    /* color: rgb(31, 153, 51); */
+    font-size: 2rem;
+}
+.searchDiv{
+    margin-left: 50px;
+}
+#anime-info{
+    background: #161922;
+    margin: 0 auto;
+    padding: 40px;
+}
+#anime-info h2{
+    margin-top: 0;
+}
 
+.anime-desc{
+    margin-left: 20px;
+}
 .episodesDiv{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-columns: auto;
+    font-size: 0.9rem;
 }
 .episodesDiv p{
     width: 250px;
@@ -13,23 +73,43 @@
 .episodeHidden{
     display: none;
 }
-
-.historyDiv ul{
-    padding: 10px;
-    display: flex;
-    /* justify-content: center; */
-    color: red;
-    list-style: none;
-    /* border: 2px solid lightgray; */
+.historyDiv{
+    margin: 0 auto;
+    padding-top: 40px;
 }
 
+.historyDiv ul{
+    display: flex;
+    list-style: none;
+    padding: 0px;
+    margin: 0 auto;
+}
+.historyDiv li{
+    margin: 0 3.5% ;
+}
 .historyDiv li img{
     height: 220px;
     width: 150px;
 }
-.historyDiv li{
+/* .historyDiv li{
     margin-right: 20px;
-}
+} */
 .noEsLaLinea20{
     display:none
+}
+section{
+    margin: 0 auto;
+}
+.img-desc-div{
+    display: flex;
+}
+.img-desc-div img{
+    max-height: 320px;
+}
+
+
+@media (min-width: 1200px){
+    section {
+        max-width: 1170px;
+    }
 }
