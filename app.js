@@ -49,7 +49,7 @@ const drawAnimeData = (title, synopsis, image_url, episodes) => {
     container2.innerHTML = `Episodes: ${episodes}`;
     container2.style.fontWeight = "bold";
 
-    addEventListener('click', () => {
+    buttonEpisodes.addEventListener('click', () => {
         episodesDiv.classList.toggle("episodeHidden");
     })
 }
@@ -59,21 +59,29 @@ const eraseAnimeData = () => {
 }
 
 inputSearch.addEventListener('keypress', (e) => {
-    if (e.key == "Enter") {
+    if (inputSearch.value != ""){     
+        if (e.key == "Enter") {
+            if (inputSearch.value != ""){
+                if (document.querySelector(".animeContainer") != null) {
+                    eraseAnimeData();
+                }
+                inputValue = inputSearch.value
+                animeFetch(inputValue)
+                inputSearch.value = "";
+            }
+        }
+    }
+})
+
+btnSearch.addEventListener('click', () => {
+    if (inputSearch.value != ""){
         if (document.querySelector(".animeContainer") != null) {
             eraseAnimeData();
         }
         inputValue = inputSearch.value
         animeFetch(inputValue)
+        inputSearch.value = "";
     }
-})
-
-btnSearch.addEventListener('click', () => {
-    if (document.querySelector(".animeContainer") != null) {
-        eraseAnimeData();
-    }
-    inputValue = inputSearch.value
-    animeFetch(inputValue)
 })
 
 const createDomImg = (mal_id, image_url, historyCount) => {
