@@ -1,7 +1,6 @@
 export const fetchEpisodes = async( id, options ) => {
     const response = await fetch(`https://jikan1.p.rapidapi.com/anime/${id}/episodes`, options)
     const animeJSON = await response.json();
-    console.log(animeJSON)
     const { episodes } = animeJSON;
     
     episodes.forEach((e, indice) => {
