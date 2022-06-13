@@ -8,16 +8,32 @@
     <link rel="stylesheet" href="./styles/app.css">
 </head>
 <body>
-    <h1>Anime APP</h1>
-    <input type="text" id="inputSearch"></input>
-    <button id="btnSearch">Search</button>
 
-    <section id="anime-info">
+    <header>
+        <section class="headerDiv">
+            <h1>Anime APP</h1>
+            <div class="searchDiv">
+                <input 
+                    type="text"
+                    id="inputSearch"
+                    placeholder="Search an anime..."
+                >
+                </input>
+                <button id="btnSearch">Search</button>
+            </div>
+        </section>
+    </header>
+
+    <section>
+        <div id="anime-info"></div>
     </section>
-    <div class="historyDiv">
-        <h3>Last viewed</h3>
-        <ul class="historyUl"></ul>
-    </div>
+
+    <section>
+        <div class="historyDiv">
+            <h3>Last viewed</h3>
+            <ul class="historyUl"></ul>
+        </div>
+    </section>
 
  
 </body>
