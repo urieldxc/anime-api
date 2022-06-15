@@ -12,14 +12,33 @@ const animeFetch = async (inputValue) => {
     const response = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
     const animeJSON = await response.json();
     const { results } = animeJSON;
-    const { title, episodes, synopsis, image_url, mal_id } = results[3];
-
-    drawAnimeData(title, synopsis, image_url, episodes);
+    const { title, episodes, synopsis, image_url, mal_id, score, start_date, end_date } = results[0];
+    const anime = {
+        mal_id,
+        title,
+        episodes,
+        synopsis,
+        image_url,
+        score,
+        start_date,
+        end_date
+    }
+    drawAnimeData(anime);
     fetchEpisodes(mal_id, options);
-    searchHistory(mal_id, image_url);
+    searchHistory(anime);
+    starRating(score)
 }
 
-const drawAnimeData = (title, synopsis, image_url, episodes) => {
+const starRating = (score) =>{
+    const starNumber = score.toFixed()/2;
+    let stars = ""
+    for(let i = 0; i < starNumber; i++){
+        stars = stars + "⭐";
+    }
+    return stars;
+}
+
+const drawAnimeData = ({ title, synopsis, image_url, episodes, score, start_date, end_date }) => {
     const animeInfo = document.getElementById("anime-info");
     const animeContainer = document.createElement("div")
     animeInfo.appendChild(animeContainer)
@@ -29,8 +48,22 @@ const drawAnimeData = (title, synopsis, image_url, episodes) => {
             <div class="img-desc-div">
                 <img src="${image_url}">
                 <div class="anime-desc">
-                    <p> ${synopsis} </p>
-                    <div class="numEpisodes">Episodes: ${episodes}</div>
+                    <div>
+                        <h4>Synopsis: </h4>
+                        <p> ${synopsis} </p>
+                    </div>
+                    <div class="info-data">
+                        <h4>Rate: </h4>
+                        <p> ${starRating(score)}</p>
+                    </div>
+                    <div class="info-data">
+                        <h4>Date: </h4>
+                        <p> ${start_date.slice(0,4)} - ${end_date.slice(0,4)} </p>
+                    </div>
+                    <div class="info-data">
+                        <h4>Episodes: </h4>
+                        <p>${episodes} </p>
+                    </div>
                     <button class="buttonEpisodes"> Show Episodes </button>
                     <div class="episodesDiv episodeHidden"></div>
                 </div>
@@ -59,7 +92,7 @@ btnSearch.addEventListener('click', () => {
     if (inputSearch.value != "") {
         animeFetch(inputSearch.value)
         inputSearch.value = "";
-        eraseAnimeData();
+        if(document.querySelector(".animeContainer") != null) eraseAnimeData();  
     }
 })
 
@@ -74,6 +107,6 @@ const drawHistoryImg = (mal_id, image_url, moreThanFive) => {
     historyUl.appendChild(animeCard)
 }
 
-const searchHistory = (mal_id, image_url) => {
+const searchHistory = ({mal_id, image_url}) => {
     lastFiveAnimes.length < 5 ? drawHistoryImg(mal_id, image_url, false) : drawHistoryImg(mal_id, image_url, true)
 }
