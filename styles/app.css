@@ -5,10 +5,17 @@ body{
     margin: 0;
     padding: 0;
 }
+
 header{
     background: #161922;
     margin-bottom: 40px;
 }
+
+a, a:visited{
+    text-decoration: none;
+    color: white;
+}
+
 
 .headerDiv{
     display: flex;
@@ -40,7 +47,7 @@ button{
     margin-top: 15px;
 }
 .animeTitle{
-    /* color: rgb(31, 153, 51); */
+    /*color: rgb(31, 153, 51);*/ 
     font-size: 2rem;
 }
 .searchDiv{

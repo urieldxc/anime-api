@@ -72,14 +72,13 @@ const eraseAnimeData = () => {
 inputSearch.addEventListener('keypress', (e) => {
     if (inputSearch.value != ""){     
         if (e.key == "Enter") {
-            if (inputSearch.value != ""){
                 if (document.querySelector(".animeContainer") != null) {
                     eraseAnimeData();
                 }
                 inputValue = inputSearch.value
                 animeFetch(inputValue)
                 inputSearch.value = "";
-            }
+            
         }
     }
 })
