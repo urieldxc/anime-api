@@ -5,9 +5,8 @@ let inputValue = "";
 const inputSearch = document.querySelector("#inputSearch");
 const btnSearch = document.querySelector("#btnSearch");
 const historyUl = document.querySelector(".historyUl");
-const animeSection = document.getElementById("anime-info");
 
-const animeHistory = [];
+const lastFiveAnimes = [];
 
 const animeFetch = async (inputValue) => {
     const response = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
@@ -21,95 +20,60 @@ const animeFetch = async (inputValue) => {
 }
 
 const drawAnimeData = (title, synopsis, image_url, episodes) => {
-    const buttonEpisodes = document.createElement("button")
-    const episodesDiv = document.createElement("div")
+    const animeInfo = document.getElementById("anime-info");
     const animeContainer = document.createElement("div")
-    const imgAndDesc = document.createElement("div");
-    const descDiv = document.createElement("div");
-    const animeDesc = document.createElement("p");
-    const animeImg = document.createElement("img")
-    const container2 = document.createElement("div");
-    const animeTitle = document.createElement("h2")
-
-    animeSection.appendChild(animeContainer)
-
-    animeContainer.appendChild(animeTitle)
-    animeContainer.appendChild(imgAndDesc);
-    
-    imgAndDesc.appendChild(animeImg)
-    
-    imgAndDesc.appendChild(descDiv)
-    descDiv.appendChild(animeDesc);
-    descDiv.appendChild(container2);
-    descDiv.appendChild(buttonEpisodes)
-    descDiv.appendChild(episodesDiv)
-
-    episodesDiv.classList.add("episodesDiv", "episodeHidden")
-    descDiv.classList.add("anime-desc")
-    imgAndDesc.classList.add("img-desc-div")
-    buttonEpisodes.classList.add("buttonEpisodes")
+    animeInfo.appendChild(animeContainer)
     animeContainer.classList.add("animeContainer")
-    buttonEpisodes.innerHTML = ("Show Episodes")
-
-    animeTitle.innerHTML = title;
-    animeDesc.innerHTML = synopsis;
-    animeImg.src = image_url
-
-    animeTitle.classList.add("animeTitle")
-    container2.classList.add("numEpisodes");
-    container2.innerHTML = `Episodes: ${episodes}`;
-    container2.style.fontWeight = "bold";
-
+    animeContainer.innerHTML = `
+            <h2 class="animeTitle"> ${title} </h2>
+            <div class="img-desc-div">
+                <img src="${image_url}">
+                <div class="anime-desc">
+                    <p> ${synopsis} </p>
+                    <div class="numEpisodes">Episodes: ${episodes}</div>
+                    <button class="buttonEpisodes"> Show Episodes </button>
+                    <div class="episodesDiv episodeHidden"></div>
+                </div>
+            </div>
+        `
+    const buttonEpisodes = document.querySelector(".buttonEpisodes")
+    const episodesDiv = document.querySelector(".episodesDiv")    
     buttonEpisodes.addEventListener('click', () => {
         episodesDiv.classList.toggle("episodeHidden");
     })
 }
 
 const eraseAnimeData = () => {
-    document.querySelector(".animeContainer").remove();
+        document.querySelector(".animeContainer").remove();
 }
 
 inputSearch.addEventListener('keypress', (e) => {
-    if (inputSearch.value != ""){     
-        if (e.key == "Enter") {
-            if (inputSearch.value != ""){
-                if (document.querySelector(".animeContainer") != null) {
-                    eraseAnimeData();
-                }
-                inputValue = inputSearch.value
-                animeFetch(inputValue)
-                inputSearch.value = "";
-            }
-        }
+    if (e.key == "Enter" && inputSearch.value != "") {
+        animeFetch(inputSearch.value)
+        inputSearch.value = "";
+        if(document.querySelector(".animeContainer") != null) eraseAnimeData();  
     }
 })
 
 btnSearch.addEventListener('click', () => {
-    if (inputSearch.value != ""){
-        if (document.querySelector(".animeContainer") != null) {
-            eraseAnimeData();
-        }
-        inputValue = inputSearch.value
-        animeFetch(inputValue)
+    if (inputSearch.value != "") {
+        animeFetch(inputSearch.value)
         inputSearch.value = "";
+        eraseAnimeData();
     }
 })
 
-const createDomImg = (mal_id, image_url, historyCount) => {
-    if (historyCount == true) {
+const drawHistoryImg = (mal_id, image_url, moreThanFive) => {
+    if (moreThanFive == true) {
         historyUl.firstChild.remove();
-        animeHistory.shift();
+        lastFiveAnimes.shift();
     }
-
-    animeHistory.push(mal_id);
+    lastFiveAnimes.push(mal_id);
     const animeCard = document.createElement("li");
-    const animeImg = document.createElement("img");
-    historyUl.appendChild(animeCard);
-    animeCard.appendChild(animeImg);
-    animeImg.src = image_url;
+    animeCard.innerHTML = `<img src="${image_url}"></img>`;
+    historyUl.appendChild(animeCard)
 }
 
 const searchHistory = (mal_id, image_url) => {
-    animeHistory.length < 5 ? createDomImg(mal_id, image_url, false) : createDomImg(mal_id, image_url, true)
+    lastFiveAnimes.length < 5 ? drawHistoryImg(mal_id, image_url, false) : drawHistoryImg(mal_id, image_url, true)
 }
-
