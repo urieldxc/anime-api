@@ -65,6 +65,13 @@ button{
 .anime-desc{
     margin-left: 20px;
 }
+.anime-desc p{
+    margin-left: 10px;
+}
+.info-data{
+    display: flex;
+    align-items: center;
+}
 .episodesDiv{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
