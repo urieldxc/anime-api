@@ -25,7 +25,7 @@ const animeFetch = async (inputValue) => {
         end_date
     }
     drawAnimeData(anime);
-    // fetchEpisodes(mal_id, options);
+    fetchEpisodes(mal_id, options);
     // searchHistory(anime);
     // starRating(score)
 }

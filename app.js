@@ -1,8 +1,10 @@
 import { options } from './helpers/optionsFetch.js';
+import { fetchEpisodes } from './fetchEpisodes.js';
 
 const inputSearch = document.querySelector("#inputSearch");
 const historyUl = document.querySelector(".historyUl");
-const searchList = document.querySelector(".search-list")
+const searchList = document.querySelector(".search-list");
+const animeContainer = document.querySelector(".animeContainer")
 const lastFiveAnimes = [];
 
 // SOLO DEBERÍA HACER EL FETCH POR NOMBRE
@@ -28,12 +30,14 @@ const fetchById = async( mal_id ) => {
         score,
         year
     }
+    fetchEpisodes(mal_id, options);
     drawAnimeData( selectedAnime );
     searchHistory( selectedAnime );
 }
 
 const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) => {
     const animeInfo = document.getElementById("anime-info");
+    if(animeInfo.firstChild)eraseAnimeData();
     const animeContainer = document.createElement("div")
     animeInfo.appendChild(animeContainer)
     animeContainer.classList.add("animeContainer")
@@ -63,6 +67,11 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
                 </div>
             </div>
         `
+        const buttonEpisodes = document.querySelector(".buttonEpisodes")
+        const episodesDiv = document.querySelector(".episodesDiv")    
+        buttonEpisodes.addEventListener('click', () => {
+            episodesDiv.classList.toggle("episodeHidden");
+        })
 }
 
 // HISTORIAL DE BÚSQUEDAS
@@ -73,8 +82,9 @@ const drawHistoryImages = (mal_id, image_url, moreThanFive) => {
     }
     lastFiveAnimes.push(mal_id);
     const animeCard = document.createElement("li");
-    animeCard.innerHTML = `<img src="${image_url}"></img>`;
+    animeCard.innerHTML = `<img class="history-img" data-id="${mal_id}" src="${image_url}"></img>`;
     historyUl.appendChild(animeCard)
+    animeHistoryLinks( animeCard.firstChild )
 }
 
 // Si el historial tiene mas de cinco, le pasa true por tercer parámetro a drawHistoryImages eliminando el primero y añadiendo otro al final.
@@ -120,32 +130,33 @@ const displaySearchList = ( animes ) =>{
 }
 
 inputSearch.addEventListener('keyup', (e) => {
+    
     if (e.key == "Enter" && inputSearch.value != "") {
         fetchByName(encodeURI(inputSearch.value).trim())
-        if(document.querySelector(".animeContainer")) eraseAnimeData();
+        if(animeContainer) eraseAnimeData();
         inputSearch.blur();
         inputSearch.value = "";
     } else {
         findAnimeList( inputSearch.value );
     }
 })
-
-inputSearch.addEventListener('focusout', () =>{
-    searchList.classList.toggle('hide-search-list');
-})
 inputSearch.addEventListener('focus', () =>{
     searchList.classList.toggle('hide-search-list');
 })
+searchList.addEventListener('focusout', () =>{
+    searchList.classList.toggle('hide-search-list');
+})
+
 const animeItemsLink = () =>{
     const searchListAnime = searchList.querySelectorAll(".search-list-item")
+    
     searchListAnime.forEach(anime => {
         anime.addEventListener('click', async () =>{
-            eraseAnimeData();
             searchList.classList.add('hide-search-list');
             inputSearch.value = "";
             const result = await fetch(`https://api.jikan.moe/v4/anime/${anime.dataset.id}/full`);
             const {data} = await result.json();
-            fetchById( data.mal_id );
+            fetchById( data.mal_id );  
         })
     })
 }
@@ -159,4 +170,10 @@ const starRating = (score) =>{
         stars = stars + "⭐";
     }
     return stars;
+}
+
+const animeHistoryLinks = ( historyItem ) =>{
+    historyItem.addEventListener('click', ()=>{
+        fetchById(historyItem.dataset.id)
+    })
 }
