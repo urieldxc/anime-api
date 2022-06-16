@@ -11,11 +11,17 @@ header{
     margin-bottom: 40px;
 }
 
-a, a:visited{
-    text-decoration: none;
-    color: white;
+.textLogo{
+    margin: 10px;
 }
-
+.textLogo h1, .textLogo p{
+    margin: 0;
+}
+.textLogo strong{
+    color:rgb(31, 153, 51);
+    font-weight: 900;
+    font-size: 1.1rem;
+}
 
 .headerDiv{
     display: flex;
@@ -25,11 +31,63 @@ a, a:visited{
 }
 .searchDiv{
     display: flex;
+    flex-direction: column;
     width: 40%;
-    justify-content: space-between;
+    justify-content: end;
+    position: relative;
+}
+.search-list{
+    position: absolute;
+    right: 5;
+    width: 105%;
+    top: 100%;
+    max-height: 500px;
+    overflow-y: scroll;
+    background: gray;
+    z-index: 10;
+}
+.search-list .search-list-item{
+    background: #222634;
+    padding: 0.5rem;
+    border-bottom: 1px solid white;
+    
+    cursor: pointer;
+    transition: background-color 200ms ease
+}
+.search-list .search-list-item:hover{
+    background: #161922;
+}
+.hide-search-list{
+    display: none;
+}
+.search-list-item{
+    display: flex;
+    align-items: center;
+}
+.search-item-thumbnail img{
+    width: 50px;
+    margin-right: 1rem;
+}
+.search-item-info p{
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    opacity: .6;
+}
+
+.search-list::-webkit-scrollbar{
+    width: 8px;
+}
+.search-list::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+.search-list::-webkit-scrollbar-thumb{
+    background: rgb(31, 153, 51);
+    outline: none;
+    border-radius: 10px;
 }
 header input{
-    width: 80%;
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     font-size: 1.1em;
@@ -105,12 +163,7 @@ button{
     height: 220px;
     width: 150px;
 }
-/* .historyDiv li{
-    margin-right: 20px;
-} */
-.noEsLaLinea20{
-    display:none
-}
+
 section{
     margin: 0 auto;
 }
