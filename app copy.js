@@ -154,7 +154,7 @@ const animeItemsLink = () =>{
     const searchListAnime = searchList.querySelectorAll(".search-list-item")
     searchListAnime.forEach(anime => {
         anime.addEventListener('click', async () =>{
-            if(document.querySelector(".animeContainer") != null) eraseAnimeData();
+            eraseAnimeData();
             searchList.classList.add('hide-search-list');
             inputSearch.value = "";
             const result = await fetch(`https://api.jikan.moe/v4/anime/${anime.dataset.id}/full`);
@@ -177,4 +177,5 @@ const animeItemsLink = () =>{
             searchHistory(selectedAnime);
         })
     })
+
 }
