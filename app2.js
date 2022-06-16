@@ -9,8 +9,8 @@ const searchList = document.querySelector(".search-list")
 const lastFiveAnimes = [];
 
 const animeFetch = async (inputValue) => {
-    const nameResponse = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
-    const animeJSON = await nameResponse.json();
+        const nameResponse = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
+        const animeJSON = await nameResponse.json();
     
     const { results } = animeJSON;
     const { title, episodes, synopsis, image_url, mal_id, score, start_date, end_date } = results[0];
@@ -25,9 +25,9 @@ const animeFetch = async (inputValue) => {
         end_date
     }
     drawAnimeData(anime);
-    // fetchEpisodes(mal_id, options);
-    // searchHistory(anime);
-    // starRating(score)
+    fetchEpisodes(mal_id, options);
+    searchHistory(anime);
+    starRating(score)
 }
 
 const starRating = (score) =>{
@@ -85,9 +85,9 @@ inputSearch.addEventListener('keyup', (e) => {
     findAnimeList();
     if (e.key == "Enter" && inputSearch.value != "") {
         animeFetch(inputSearch.value)
+        xFetch(inputSearch.value);
         inputSearch.value = "";
         searchList.classList.add("hide-search-list")
-
         if(document.querySelector(".animeContainer") != null) eraseAnimeData();  
     }
 })
@@ -154,7 +154,7 @@ const animeItemsLink = () =>{
     const searchListAnime = searchList.querySelectorAll(".search-list-item")
     searchListAnime.forEach(anime => {
         anime.addEventListener('click', async () =>{
-            eraseAnimeData();
+            if(document.querySelector(".animeContainer") != null) eraseAnimeData();
             searchList.classList.add('hide-search-list');
             inputSearch.value = "";
             const result = await fetch(`https://api.jikan.moe/v4/anime/${anime.dataset.id}/full`);
@@ -177,5 +177,13 @@ const animeItemsLink = () =>{
             searchHistory(selectedAnime);
         })
     })
+}
+
+const xFetch = async( inputValue) => {
+    const nameResponse = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
+    const animeNameJSON = await nameResponse.json();
+    const {results} = animeNameJSON;
+    const name = encodeURI(results[0].title)
+    console.log(name)
 
 }

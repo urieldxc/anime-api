@@ -1,45 +1,38 @@
 import { options } from './helpers/optionsFetch.js';
-import { fetchEpisodes } from './fetchEpisodes.js';
 
-let inputValue = "";
 const inputSearch = document.querySelector("#inputSearch");
 const historyUl = document.querySelector(".historyUl");
 const searchList = document.querySelector(".search-list")
-
 const lastFiveAnimes = [];
 
-const animeFetch = async (inputValue) => {
-        const nameResponse = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
-        const animeJSON = await nameResponse.json();
-    
-    const { results } = animeJSON;
-    const { title, episodes, synopsis, image_url, mal_id, score, start_date, end_date } = results[0];
-    const anime = {
+// SOLO DEBERÍA HACER EL FETCH POR NOMBRE
+const fetchByName = async ( inputValue ) => {
+    const nameResponse = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${inputValue}`, options);
+    const animeJSON = await nameResponse.json();
+    const { mal_id } = animeJSON.results[0];
+    fetchById( mal_id )
+}
+
+// Hacer fetch por ID,  gracias a haber hecho un fetch por nombre anteriormente.
+const fetchById = async( mal_id ) => {
+    const result = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}/full`);
+    const { data } = await result.json();
+    const { image_url } = data.images.jpg
+    const { title, synopsis, episodes, score, year } = data;
+    const selectedAnime = {
         mal_id,
         title,
         episodes,
         synopsis,
         image_url,
         score,
-        start_date,
-        end_date
+        year
     }
-    drawAnimeData(anime);
-    fetchEpisodes(mal_id, options);
-    searchHistory(anime);
-    starRating(score)
+    drawAnimeData( selectedAnime );
+    searchHistory( selectedAnime );
 }
 
-const starRating = (score) =>{
-    const starNumber = score.toFixed()/2;
-    let stars = ""
-    for(let i = 0; i < starNumber; i++){
-        stars = stars + "⭐";
-    }
-    return stars;
-}
-
-const drawAnimeData = ({ title, synopsis, image_url, episodes, score, start_date, end_date }) => {
+const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) => {
     const animeInfo = document.getElementById("anime-info");
     const animeContainer = document.createElement("div")
     animeInfo.appendChild(animeContainer)
@@ -59,7 +52,7 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, start_date
                     </div>
                     <div class="info-data">
                         <h4>Date: </h4>
-                        <p> ${start_date} - ${end_date} </p>
+                        <p> ${year}</p>
                     </div>
                     <div class="info-data">
                         <h4>Episodes: </h4>
@@ -70,29 +63,10 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, start_date
                 </div>
             </div>
         `
-    const buttonEpisodes = document.querySelector(".buttonEpisodes")
-    const episodesDiv = document.querySelector(".episodesDiv")    
-    buttonEpisodes.addEventListener('click', () => {
-        episodesDiv.classList.toggle("episodeHidden");
-    })
 }
 
-const eraseAnimeData = () => {
-    document.querySelector(".animeContainer").remove();
-}
-
-inputSearch.addEventListener('keyup', (e) => {
-    findAnimeList();
-    if (e.key == "Enter" && inputSearch.value != "") {
-        animeFetch(inputSearch.value)
-        inputSearch.value = "";
-        searchList.classList.add("hide-search-list")
-
-        if(document.querySelector(".animeContainer") != null) eraseAnimeData();  
-    }
-})
-
-const drawHistoryImg = (mal_id, image_url, moreThanFive) => {
+// HISTORIAL DE BÚSQUEDAS
+const drawHistoryImages = (mal_id, image_url, moreThanFive) => {
     if (moreThanFive == true) {
         historyUl.firstChild.remove();
         lastFiveAnimes.shift();
@@ -103,78 +77,86 @@ const drawHistoryImg = (mal_id, image_url, moreThanFive) => {
     historyUl.appendChild(animeCard)
 }
 
+// Si el historial tiene mas de cinco, le pasa true por tercer parámetro a drawHistoryImages eliminando el primero y añadiendo otro al final.
 const searchHistory = ({mal_id, image_url}) => {
-    lastFiveAnimes.length < 5 ? drawHistoryImg(mal_id, image_url, false) : drawHistoryImg(mal_id, image_url, true)
+    lastFiveAnimes.length < 5 ? 
+    drawHistoryImages(mal_id, image_url, false) : 
+    drawHistoryImages(mal_id, image_url, true)
 }
-
-const findAnimeList = () => {
-    let searchAnime = (inputSearch.value)
+const findAnimeList = ( searchAnime ) => {
     if(searchAnime.length > 0){
         searchList.classList.remove("hide-search-list");
         if(searchAnime.length > 2) animeListSearch(searchAnime);
-        
     } else {
         searchList.classList.add("hide-search-list")
     }
 }
-
 const animeListSearch = async ( searchAnime ) => {
     const res = await fetch(`https://jikan1.p.rapidapi.com/search/anime?q=${searchAnime}`, options);
     const {results, request_cached} = await res.json();
-    if(request_cached) displayAnimeList(results)
+    if(request_cached) displaySearchList(results)
 }
 
-const displayAnimeList = ( animes ) =>{
+const displaySearchList = ( animes ) =>{
     searchList.innerHTML = "";
-    let maxAnimes = 25;
-    for(let i = 0; i <  maxAnimes; i++){
+    animes.forEach( anime => {
         let animeListItem = document.createElement("div")
-        animeListItem.dataset.id = animes[i].mal_id
+        animeListItem.dataset.id = anime.mal_id
         animeListItem.classList.add('search-list-item')
-        let endDate, startDate;
-        if (animes[i].end_date != null) { endDate = animes[i].end_date.slice(0,4)}
-        if (animes[i].start_date != null) { startDate = animes[i].start_date.slice(0,4)}
-    
+        let year = "";
+        if(anime.start_date) year = anime.start_date.slice(0,4)
         animeListItem.innerHTML = `
             <div class="search-item-thumbnail">
-                <img src="${animes[i].image_url}">
+                <img src="${anime.image_url}">
             </div>
             <div class="search-item-info">
-                <h4>${animes[i].title}</h4>
-                <p>${startDate || "???"} 
-                - ${endDate || "??"}</p>
+                <h4>${anime.title}</h4>
+                <p>${year}</p>
             </div>
         `
         searchList.appendChild(animeListItem)
-    }
+    })
     animeItemsLink();
 }
 
+inputSearch.addEventListener('keyup', (e) => {
+    if (e.key == "Enter" && inputSearch.value != "") {
+        fetchByName(encodeURI(inputSearch.value).trim())
+        if(document.querySelector(".animeContainer")) eraseAnimeData();
+        inputSearch.blur();
+        inputSearch.value = "";
+    } else {
+        findAnimeList( inputSearch.value );
+    }
+})
+
+inputSearch.addEventListener('focusout', () =>{
+    searchList.classList.toggle('hide-search-list');
+})
+inputSearch.addEventListener('focus', () =>{
+    searchList.classList.toggle('hide-search-list');
+})
 const animeItemsLink = () =>{
     const searchListAnime = searchList.querySelectorAll(".search-list-item")
     searchListAnime.forEach(anime => {
         anime.addEventListener('click', async () =>{
-            if(document.querySelector(".animeContainer") != null) eraseAnimeData();
+            eraseAnimeData();
             searchList.classList.add('hide-search-list');
             inputSearch.value = "";
             const result = await fetch(`https://api.jikan.moe/v4/anime/${anime.dataset.id}/full`);
             const {data} = await result.json();
-            const {image_url} = data.images.jpg
-            const { title, synopsis, episodes, score, start_date, end_date, mal_id } = data;
-            const selectedAnime = {
-                mal_id,
-                title,
-                episodes,
-                synopsis,
-                image_url,
-                score,
-                start_date,
-                end_date
-            }
-            console.log(data)
-            drawAnimeData(selectedAnime)
-            fetchEpisodes(mal_id, options);
-            searchHistory(selectedAnime);
+            fetchById( data.mal_id );
         })
     })
+}
+const eraseAnimeData = () => {
+    document.querySelector(".animeContainer").remove();
+}
+const starRating = (score) =>{
+    const starNumber = score.toFixed()/2;
+    let stars = ""
+    for(let i = 0; i < starNumber; i++){
+        stars = stars + "⭐";
+    }
+    return stars;
 }
