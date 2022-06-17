@@ -22,11 +22,10 @@ const fetchById = async( mal_id ) => {
     console.log(data)
     const { image_url } = data.images.jpg
     const genres = data.genres
-    const animeGenres = []
-    genres.map( e => {
-        animeGenres.push(e.name)
-    })
-    console.log(animeGenres)
+    // const animeGenres = []
+    // genres.map( e => {
+    //     animeGenres.push(e.name)
+    // })
     const { title, synopsis, episodes, score, year } = data;
     const selectedAnime = {
         mal_id,
@@ -36,14 +35,18 @@ const fetchById = async( mal_id ) => {
         image_url,
         score,
         year,
-        name,
+        genres,
     }
     fetchEpisodes(mal_id, options);
     drawAnimeData( selectedAnime );
     searchHistory( selectedAnime );
 }
 
-const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, name }) => {
+const drawGenres = ( genres ) =>{
+    return (genres.map( e => `<li class="genre">${e.name}</li>` ).join(''))
+}
+
+const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, genres }) => {
     const animeInfo = document.getElementById("anime-info");
     if(animeInfo.firstChild)eraseAnimeData();
     const animeContainer = document.createElement("div")
@@ -51,10 +54,12 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, name
     animeContainer.classList.add("animeContainer")
     animeContainer.innerHTML = `
             <h2 class="animeTitle"> ${title} </h2>
-            <div class="img-genre">
-                <img src="${image_url}">
-                <p> ${name} </p>
-            </div>    
+            <div class="img-desc-wrapper">
+                <div class="img-genre-div">
+                    <img src="${image_url}">
+                    <ul>${drawGenres(genres)}</ul>
+                </div>
+
                 <div class="anime-desc">
                     <div>
                         <h4>Synopsis: </h4>
@@ -62,7 +67,7 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, name
                     </div>
                     <div class="info-data">
                         <h4>Rate: </h4>
-                        <p> ${starRating(score)}</p>
+                        <p>${starRating(score)}</p>
                     </div>
                     <div class="info-data">
                         <h4>Date: </h4>
@@ -74,7 +79,9 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, name
                     </div>
                     <button class="buttonEpisodes"> Show Episodes </button>
                     <div class="episodesDiv episodeHidden"></div>
-                </div>
+                </div>   
+            </div>
+               
         `
         const buttonEpisodes = document.querySelector(".buttonEpisodes")
         const episodesDiv = document.querySelector(".episodesDiv")    
@@ -82,6 +89,7 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, name
             episodesDiv.classList.toggle("episodeHidden");
         })
 }
+
 
 // HISTORIAL DE BÚSQUEDAS
 const drawHistoryImages = (mal_id, image_url, moreThanFive) => {
