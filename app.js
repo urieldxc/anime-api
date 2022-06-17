@@ -19,7 +19,14 @@ const fetchByName = async ( inputValue ) => {
 const fetchById = async( mal_id ) => {
     const result = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}/full`);
     const { data } = await result.json();
+    console.log(data)
     const { image_url } = data.images.jpg
+    const genres = data.genres
+    const animeGenres = []
+    genres.map( e => {
+        animeGenres.push(e.name)
+    })
+    console.log(animeGenres)
     const { title, synopsis, episodes, score, year } = data;
     const selectedAnime = {
         mal_id,
@@ -28,14 +35,15 @@ const fetchById = async( mal_id ) => {
         synopsis,
         image_url,
         score,
-        year
+        year,
+        name,
     }
     fetchEpisodes(mal_id, options);
     drawAnimeData( selectedAnime );
     searchHistory( selectedAnime );
 }
 
-const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) => {
+const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, name }) => {
     const animeInfo = document.getElementById("anime-info");
     if(animeInfo.firstChild)eraseAnimeData();
     const animeContainer = document.createElement("div")
@@ -43,8 +51,10 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
     animeContainer.classList.add("animeContainer")
     animeContainer.innerHTML = `
             <h2 class="animeTitle"> ${title} </h2>
-            <div class="img-desc-div">
+            <div class="img-genre">
                 <img src="${image_url}">
+                <p> ${name} </p>
+            </div>    
                 <div class="anime-desc">
                     <div>
                         <h4>Synopsis: </h4>
@@ -65,7 +75,6 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
                     <button class="buttonEpisodes"> Show Episodes </button>
                     <div class="episodesDiv episodeHidden"></div>
                 </div>
-            </div>
         `
         const buttonEpisodes = document.querySelector(".buttonEpisodes")
         const episodesDiv = document.querySelector(".episodesDiv")    
