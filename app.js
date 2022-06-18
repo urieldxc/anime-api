@@ -19,7 +19,13 @@ const fetchByName = async ( inputValue ) => {
 const fetchById = async( mal_id ) => {
     const result = await fetch(`https://api.jikan.moe/v4/anime/${mal_id}/full`);
     const { data } = await result.json();
+    console.log(data)
     const { image_url } = data.images.jpg
+    const genres = data.genres
+    // const animeGenres = []
+    // genres.map( e => {
+    //     animeGenres.push(e.name)
+    // })
     const { title, synopsis, episodes, score, year } = data;
     const selectedAnime = {
         mal_id,
@@ -28,14 +34,19 @@ const fetchById = async( mal_id ) => {
         synopsis,
         image_url,
         score,
-        year
+        year,
+        genres,
     }
     fetchEpisodes(mal_id, options);
     drawAnimeData( selectedAnime );
     searchHistory( selectedAnime );
 }
 
-const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) => {
+const drawGenres = ( genres ) =>{
+    return (genres.map( e => `<li class="genre">${e.name}</li>` ).join(''))
+}
+
+const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year, genres }) => {
     const animeInfo = document.getElementById("anime-info");
     if(animeInfo.firstChild)eraseAnimeData();
     const animeContainer = document.createElement("div")
@@ -43,8 +54,12 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
     animeContainer.classList.add("animeContainer")
     animeContainer.innerHTML = `
             <h2 class="animeTitle"> ${title} </h2>
-            <div class="img-desc-div">
-                <img src="${image_url}">
+            <div class="img-desc-wrapper">
+                <div class="img-genre-div">
+                    <img src="${image_url}">
+                    <ul>${drawGenres(genres)}</ul>
+                </div>
+
                 <div class="anime-desc">
                     <div>
                         <h4>Synopsis: </h4>
@@ -52,7 +67,7 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
                     </div>
                     <div class="info-data">
                         <h4>Rate: </h4>
-                        <p> ${starRating(score)}</p>
+                        <p>${starRating(score)}</p>
                     </div>
                     <div class="info-data">
                         <h4>Date: </h4>
@@ -64,8 +79,9 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
                     </div>
                     <button class="buttonEpisodes"> Show Episodes </button>
                     <div class="episodesDiv episodeHidden"></div>
-                </div>
+                </div>   
             </div>
+               
         `
         const buttonEpisodes = document.querySelector(".buttonEpisodes")
         const episodesDiv = document.querySelector(".episodesDiv")    
@@ -74,8 +90,10 @@ const drawAnimeData = ({ title, synopsis, image_url, episodes, score, year }) =>
         })
 }
 
+
 // HISTORIAL DE BÚSQUEDAS
 const drawHistoryImages = (mal_id, image_url, moreThanFive) => {
+
     if (moreThanFive == true) {
         historyUl.firstChild.remove();
         lastFiveAnimes.shift();

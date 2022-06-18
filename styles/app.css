@@ -5,10 +5,12 @@ body{
     margin: 0;
     padding: 0;
 }
+
 header{
     background: #161922;
     margin-bottom: 40px;
 }
+
 .textLogo{
     margin: 10px;
 }
@@ -20,6 +22,7 @@ header{
     font-weight: 900;
     font-size: 1.1rem;
 }
+
 .headerDiv{
     display: flex;
     align-items: center;
@@ -102,7 +105,7 @@ button{
     margin-top: 15px;
 }
 .animeTitle{
-    /* color: rgb(31, 153, 51); */
+    /*color: rgb(31, 153, 51);*/ 
     font-size: 2rem;
 }
 .searchDiv{
@@ -160,6 +163,9 @@ button{
     height: 220px;
     width: 150px;
 }
+.history-img{
+    cursor: pointer;
+}
 
 section{
     margin: 0 auto;
@@ -167,9 +173,26 @@ section{
 .img-desc-div{
     display: flex;
 }
-.img-desc-div img{
-    max-height: 320px;
+.img-genre-div img{
+    height: 400px;
 }
+.img-desc-wrapper{
+    display: flex;
+}
+.img-genre-div ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    list-style: none;
+    padding: 0;
+}
+.img-genre-div li{
+    padding: .5rem;
+    margin: .5rem;
+    background: rgb(31, 153, 51);
+    border-radius: 5px;
+}
+
 .caca:hover{
     width:20px
 }
