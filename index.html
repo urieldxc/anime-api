@@ -8,26 +8,34 @@
     <link rel="stylesheet" href="./styles/app.css">
 </head>
 <body>
-
     <header>
         <section class="headerDiv">
             <div class="textLogo">
                 <h1>Apuri APP </h1>
                 <p>アニメ<strong>アプリ!!</strong></p>
             </div>
+            
+            <div class="page-links">
+                <ul>
+                    <li><a class="about-link">About</a></li>
+                    <li><a class="filter-link">Filter</a></li>
+                    <li><a class="mylist-link">My List</a></li>
+                </ul>
+            </div>
 
             <div class="searchDiv">
                 <input 
-                    type="text"
-                    id="inputSearch"
-                    placeholder="Search an anime...">
-                </input>
+                type="text"
+                id="inputSearch"
+                placeholder="Search an anime...">
+            </input>
+            
+            <div class="search-list hide-search-list"></div>
+        </div>
+    </section>
+</header>
 
-                <div class="search-list hide-search-list"></div>
-            </div>
-        </section>
-    </header>
-
+<div class="anime-container hidden">
     <section>
         <div id="anime-info"></div>
     </section>
@@ -39,7 +47,31 @@
         </div>
     </section>
 
+</div>
+
+<div class="about-container secondary-page hidden">
+    <h2>About</h2>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel, aut fugiat explicabo totam optio expedita saepe! Accusamus cupiditate quod mollitia aspernatur nesciunt ratione dolores quasi harum nam distinctio quae totam aliquam iure alias hic, similique culpa voluptas fuga ullam, esse, architecto ex. Illum autem culpa deleniti minima repudiandae suscipit soluta vitae veritatis praesentium! Totam assumenda ipsa inventore, officiis expedita fuga aut facere amet ad corporis cum eligendi earum modi nulla fugit mollitia possimus cupiditate maxime perspiciatis! Perferendis odio delectus impedit earum nostrum pariatur numquam natus veritatis voluptate ullam provident laborum esse sit excepturi culpa, reiciendis suscipit? Est vero non dolores, et praesentium ad esse maiores natus autem ratione amet, repudiandae rem facilis ex laboriosam porro fugiat quasi, enim quae delectus tempora expedita distinctio quam quibusdam. Rem sint voluptates nesciunt dolor consequatur ipsum, corrupti perferendis sapiente commodi minima inventore libero voluptas consequuntur? In, sunt voluptas nesciunt at hic expedita repudiandae! Voluptatem mollitia nam molestias labore sit, rem inventore ipsam minus aliquam. Tempora excepturi voluptatibus rem ipsam, eum quas pariatur optio vel voluptate neque nulla exercitationem animi corporis officia assumenda minus error in dolorum. Nemo quas a quia natus totam eius, deleniti est eligendi dolor doloribus? Amet perferendis accusamus velit dignissimos eius sequi reiciendis sunt distinctio minima deserunt fuga nostrum, tenetur error deleniti vitae voluptate nam provident veniam ullam autem eligendi culpa. Tempora ad blanditiis, quae accusantium cupiditate, possimus magni numquam, atque non sit iusto fuga magnam tenetur molestiae. Ab rem nobis delectus obcaecati a consequatur odio perspiciatis sunt velit esse voluptates sed exercitationem, enim ipsa reiciendis fugit provident! Nihil corporis vel quo consequuntur nesciunt corrupti libero veniam quisquam reprehenderit molestiae aspernatur nam, veritatis est laborum! Nostrum enim accusantium beatae totam iusto? Aliquid saepe asperiores atque? Repudiandae et quibusdam praesentium voluptatem, iure molestias vitae labore atque tenetur, nihil dolore voluptatibus quas temporibus?</p>
+</div>
+<div class="filter-container secondary-page hidden">
+    <h2>Filter</h2>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel, aut fugiat explicabo totam optio expedita saepe! Accusamus cupiditate quod mollitia aspernatur nesciunt ratione dolores quasi harum nam distinctio quae totam aliquam iure alias hic, similique culpa voluptas fuga ullam, esse, architecto ex. Illum autem culpa deleniti minima repudiandae suscipit soluta vitae veritatis praesentium! Totam assumenda ipsa inventore, officiis expedita fuga aut facere amet ad corporis cum eligendi earum modi nulla fugit mollitia possimus cupiditate maxime perspiciatis! Perferendis odio delectus impedit earum nostrum pariatur numquam natus veritatis voluptate ullam provident laborum esse sit excepturi culpa, reiciendis suscipit? Est vero non dolores, et praesentium ad esse maiores natus autem ratione amet, repudiandae rem facilis ex laboriosam porro fugiat quasi, enim quae delectus tempora expedita distinctio quam quibusdam. Rem sint voluptates nesciunt dolor consequatur ipsum, corrupti perferendis sapiente commodi minima inventore libero voluptas consequuntur? In, sunt voluptas nesciunt at hic expedita repudiandae! Voluptatem mollitia nam molestias labore sit, rem inventore ipsam minus aliquam. Tempora excepturi voluptatibus rem ipsam, eum quas pariatur optio vel voluptate neque nulla exercitationem animi corporis officia assumenda minus error in dolorum. Nemo quas a quia natus totam eius, deleniti est eligendi dolor doloribus? Amet perferendis accusamus velit dignissimos eius sequi reiciendis sunt distinctio minima deserunt fuga nostrum, tenetur error deleniti vitae voluptate nam provident veniam ullam autem eligendi culpa. Tempora ad blanditiis, quae accusantium cupiditate, possimus magni numquam, atque non sit iusto fuga magnam tenetur molestiae. Ab rem nobis delectus obcaecati a consequatur odio perspiciatis sunt velit esse voluptates sed exercitationem, enim ipsa reiciendis fugit provident! Nihil corporis vel quo consequuntur nesciunt corrupti libero veniam quisquam reprehenderit molestiae aspernatur nam, veritatis est laborum! Nostrum enim accusantium beatae totam iusto? Aliquid saepe asperiores atque? Repudiandae et quibusdam praesentium voluptatem, iure molestias vitae labore atque tenetur, nihil dolore voluptatibus quas temporibus?</p>
+</div>
+
+<div class="user-list-container secondary-page hidden">
+    <h2>My List</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla officia sapiente iure ad a laborum suscipit nisi non perspiciatis? Illo ea consectetur voluptate porro, libero sunt aliquam assumenda repellat vitae!</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt eius porro, beatae molestias unde ipsa aut praesentium aliquid vero, magnam vel debitis rem. Facere, architecto praesentium quo odit ullam culpa.</p>
+</div>
+
  
+<script type="module" src="./js/app.js"></script>
+<script type="module" src="./js/showPages.js"></script>
 </body>
-<script type="module" src="app.js"></script>
 </html>

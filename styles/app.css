@@ -10,7 +10,26 @@ header{
     background: #161922;
     margin-bottom: 40px;
 }
-
+.page-links{
+    display: flex;
+    justify-content: end;
+    flex: 1;
+}
+.page-links ul{
+    display: flex;
+    list-style-type: none;
+}
+.page-links li{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-right: 40px;
+}
+.page-links a{
+    color: white;
+    text-decoration-line: none;
+    cursor: pointer;
+}
+.page-links a:visited {color: white}
 .textLogo{
     margin: 10px;
 }
@@ -20,7 +39,7 @@ header{
 .textLogo strong{
     color:rgb(31, 153, 51);
     font-weight: 900;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .headerDiv{
@@ -39,7 +58,6 @@ header{
 .search-list{
     position: absolute;
     right: 5;
-    width: 105%;
     top: 100%;
     max-height: 500px;
     overflow-y: scroll;
@@ -87,7 +105,6 @@ header{
     border-radius: 10px;
 }
 header input{
-    width: 100%;
     padding: 10px;
     border-radius: 5px;
     font-size: 1.1em;
@@ -108,9 +125,7 @@ button{
     /*color: rgb(31, 153, 51);*/ 
     font-size: 2rem;
 }
-.searchDiv{
-    margin-left: 50px;
-}
+
 #anime-info{
     background: #161922;
     margin: 0 auto;
@@ -121,11 +136,9 @@ button{
 }
 
 .anime-desc{
-    margin-left: 20px;
+    margin-left: 40px;
 }
-.anime-desc p{
-    margin-left: 10px;
-}
+
 .info-data{
     display: flex;
     align-items: center;
@@ -196,7 +209,9 @@ section{
 .caca:hover{
     width:20px
 }
-
+.hidden{
+    display: none;
+}
 
 @media (min-width: 1200px){
     section {

@@ -1,5 +1,8 @@
-import { options } from './helpers/optionsFetch.js';
+import { options } from './optionsFetch.js';
 import { fetchEpisodes } from './fetchEpisodes.js';
+import "./showPages.js"
+import { animePage } from './showPages.js';
+
 
 const inputSearch = document.querySelector("#inputSearch");
 const historyUl = document.querySelector(".historyUl");
@@ -146,10 +149,17 @@ const displaySearchList = ( animes ) =>{
     })
     animeItemsLink();
 }
-
+const showOnlyAnimePage = () =>{
+    animePage.classList.remove("hidden")
+    const secondaryPages = document.querySelectorAll(".secondary-page")
+    secondaryPages.forEach( e=>{
+        e.classList.add("hidden")
+    })
+}
 inputSearch.addEventListener('keyup', (e) => {
     
     if (e.key == "Enter" && inputSearch.value != "") {
+        showOnlyAnimePage();
         fetchByName(encodeURI(inputSearch.value).trim())
         if(animeContainer) eraseAnimeData();
         inputSearch.blur();
@@ -170,6 +180,7 @@ const animeItemsLink = () =>{
     
     searchListAnime.forEach(anime => {
         anime.addEventListener('click', async () =>{
+            showOnlyAnimePage();
             searchList.classList.add('hide-search-list');
             inputSearch.value = "";
             const result = await fetch(`https://api.jikan.moe/v4/anime/${anime.dataset.id}/full`);
