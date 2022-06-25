@@ -143,13 +143,13 @@ button{
     display: flex;
     align-items: center;
 }
-.episodesDiv{
+.episodesListDiv{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-auto-columns: auto;
     font-size: 0.9rem;
 }
-.episodesDiv p{
+.episodesListDiv p{
     width: 250px;
 }
 .episodesButton{
@@ -189,7 +189,7 @@ section{
 .img-genre-div img{
     height: 400px;
 }
-.img-desc-wrapper{
+.anime-info-wrapper{
     display: flex;
 }
 .img-genre-div ul{
