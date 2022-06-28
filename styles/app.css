@@ -10,33 +10,33 @@ header{
     background: #161922;
     margin-bottom: 40px;
 }
-.page-links{
+.headerDiv__page-links{
     display: flex;
     justify-content: end;
     flex: 1;
 }
-.page-links ul{
+.headerDiv__page-links ul{
     display: flex;
     list-style-type: none;
 }
-.page-links li{
+.headerDiv__page-links li{
     font-size: 1.2rem;
     font-weight: 600;
     margin-right: 40px;
 }
-.page-links a{
+.headerDiv__page-links a{
     color: white;
     text-decoration-line: none;
     cursor: pointer;
 }
-.page-links a:visited {color: white}
-.textLogo{
+.headerDiv__page-links a:visited {color: white}
+.headerDiv__textLogo{
     margin: 10px;
 }
-.textLogo h1, .textLogo p{
+.headerDiv__textLogo h1, .headerDiv__textLogo p{
     margin: 0;
 }
-.textLogo strong{
+.headerDiv__textLogo strong{
     color:rgb(31, 153, 51);
     font-weight: 900;
     font-size: 1.2rem;
@@ -126,12 +126,12 @@ button{
     font-size: 2rem;
 }
 
-#anime-info{
+#anime-container__anime-info{
     background: #161922;
     margin: 0 auto;
     padding: 40px;
 }
-#anime-info h2{
+#anime-container__anime-info h2{
     margin-top: 0;
 }
 
@@ -158,21 +158,21 @@ button{
 .episodeHidden{
     display: none;
 }
-.historyDiv{
+.historyDiv__historyUl{
     margin: 0 auto;
     padding-top: 40px;
 }
 
-.historyDiv ul{
+.historyDiv__historyUl ul{
     display: flex;
     list-style: none;
     padding: 0px;
     margin: 0 auto;
 }
-.historyDiv li{
+.historyDiv__historyUl li{
     margin: 0 3.5% ;
 }
-.historyDiv li img{
+.historyDiv__historyUl li img{
     height: 220px;
     width: 150px;
 }

@@ -3,10 +3,10 @@ const aboutPage = document.querySelector(".about-container")
 const filterPage = document.querySelector(".filter-container")
 const myListPage = document.querySelector(".user-list-container")
 
-const homeLink = document.querySelector(".textLogo")
-const aboutLink = document.querySelector(".about-link")
-const filterLink = document.querySelector(".filter-link")
-const myListLink = document.querySelector(".mylist-link")
+const homeLink = document.querySelector(".headerDiv__textLogo")
+const aboutLink = document.querySelector(".page-links__about-link")
+const filterLink = document.querySelector(".page-links__filter-link")
+const myListLink = document.querySelector(".page-links__mylist-link")
 
 aboutLink.addEventListener('click', ()=>{
     aboutPage.classList.remove("hidden")
