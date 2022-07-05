@@ -4,9 +4,9 @@ const filterPage = document.querySelector(".filter-container")
 const myListPage = document.querySelector(".user-list-container")
 
 const homeLink = document.querySelector(".headerDiv__textLogo")
-const aboutLink = document.querySelector(".page-links__about-link")
-const filterLink = document.querySelector(".page-links__filter-link")
-const myListLink = document.querySelector(".page-links__mylist-link")
+const aboutLink = document.querySelector(".headerDiv__about")
+const filterLink = document.querySelector(".headerDiv__filter")
+const myListLink = document.querySelector(".headerDiv__mylist")
 
 aboutLink.addEventListener('click', ()=>{
     aboutPage.classList.remove("hidden")

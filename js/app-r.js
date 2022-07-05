@@ -27,7 +27,7 @@ const fetchAnime = async(inputValue) =>{
 
 export const drawAnimeData = async(animeName) => {
     const anime = await fetchAnime(animeName);
-    const animeInfo = document.getElementById("anime-container__anime-info");
+    const animeInfo = document.getElementById("anime-container__info");
     if(animeInfo.firstChild)eraseAnimeData();
     createAnimeDom(anime, animeInfo);
     searchHistory(anime);
@@ -38,7 +38,7 @@ const eraseAnimeData = () => {
 }
 
 // Historial
-const historyUl = document.querySelector(".historyDiv__historyUl");
+const historyUl = document.querySelector(".anime-container__historyUl");
 const lastFiveAnimes = [];
 const searchHistory = (anime) => {
     lastFiveAnimes.length < 5 ? drawHistoryImages(anime, false) : drawHistoryImages(anime, true);

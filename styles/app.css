@@ -48,7 +48,7 @@ header{
     margin: 0 auto;
     justify-content: space-between;
 }
-.searchDiv{
+.headerDiv_search{
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -126,12 +126,12 @@ button{
     font-size: 2rem;
 }
 
-#anime-container__anime-info{
+#anime-container__info{
     background: #161922;
     margin: 0 auto;
     padding: 40px;
 }
-#anime-container__anime-info h2{
+#anime-container__info h2{
     margin-top: 0;
 }
 
@@ -158,21 +158,24 @@ button{
 .episodeHidden{
     display: none;
 }
-.historyDiv__historyUl{
+.anime-container__historyUl{
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 auto;
-    padding-top: 40px;
+    padding-top: 20px;
+    flex-direction: row;
 }
 
-.historyDiv__historyUl ul{
+.anime-container__historyUl ul{
     display: flex;
-    list-style: none;
-    padding: 0px;
     margin: 0 auto;
+    justify-content: space-around;
 }
-.historyDiv__historyUl li{
-    margin: 0 3.5% ;
+.anime-container__historyUl li{
+    margin: 26px 26px ;
+    list-style-type: none;
 }
-.historyDiv__historyUl li img{
+.anime-container__historyUl li img{
     height: 220px;
     width: 150px;
 }
